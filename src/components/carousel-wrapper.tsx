@@ -48,8 +48,10 @@ const CarouselWrapper: React.FC<CarouselWrapperProps> = ({ data }) => {
     console.log("Submit button clicked with regex:", regexInput);
 
     const currentQuestion = data[currentIndex];
-    const regex = new RegExp(regexInput);
-
+    if (regexInput!='')
+    {
+      const regex = new RegExp(regexInput);
+      
     const results = currentQuestion.test_cases.map((testCase) => {
       const result = regex.test(testCase);
       console.log(`Test case: "${testCase}" - Result: ${result}`);
@@ -71,6 +73,11 @@ const CarouselWrapper: React.FC<CarouselWrapperProps> = ({ data }) => {
     if (newAnswered.every((answer) => answer)) {
       setShowScore(true);
     }
+    }
+    else{
+      alert('Regex is empty')
+    }
+
   };
 
   const handleHint = () => {
