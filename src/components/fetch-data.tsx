@@ -8,7 +8,7 @@ interface Question {
   solutions: string[];
   hint: string;
   test_cases: string[];
-  fail_cases: string[]; // Ensure this matches the structure of your data
+  fail_cases: string[];
 }
 
 interface MyData {
