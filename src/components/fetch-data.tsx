@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import React, { useEffect, useState } from "react";
 import CarouselWrapper from "@/components/carousel-wrapper";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -8,7 +8,7 @@ interface Question {
   solutions: string[];
   hint: string;
   test_cases: string[];
-  fail_cases:string[]; // Ensure this matches the structure of your data
+  fail_cases: string[]; // Ensure this matches the structure of your data
 }
 
 interface MyData {
