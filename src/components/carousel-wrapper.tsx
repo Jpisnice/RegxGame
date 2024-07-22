@@ -52,6 +52,7 @@ const CarouselWrapper: React.FC<CarouselWrapperProps> = ({ data }) => {
     if(regexInput == '*'){
       alert('No Shortcuts')
     }
+    else{
     if (regexInput !== "" && regexInput !== "()*") {
       const regex = new RegExp(regexInput);
 
@@ -87,6 +88,7 @@ const CarouselWrapper: React.FC<CarouselWrapperProps> = ({ data }) => {
     } else {
       alert("Regex is empty");
     }
+  }
   };
 
 
