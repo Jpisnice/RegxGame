@@ -22,7 +22,8 @@ interface Question {
   question: string;
   solutions: string[];
   hint: string;
-  test_cases: string[]; // Ensure this matches the structure of your data
+  test_cases: string[];
+  fail_cases: string[]; // Ensure this matches the structure of your data
 }
 
 interface CarouselWrapperProps {
@@ -48,37 +49,43 @@ const CarouselWrapper: React.FC<CarouselWrapperProps> = ({ data }) => {
     console.log("Submit button clicked with regex:", regexInput);
 
     const currentQuestion = data[currentIndex];
-    if (regexInput!='')
-    {
+    if (regexInput != "") {
       const regex = new RegExp(regexInput);
-      
-    const results = currentQuestion.test_cases.map((testCase) => {
-      const result = regex.test(testCase);
-      console.log(`Test case: "${testCase}" - Result: ${result}`);
-      return result;
-    });
 
-    const allPassed = results.every((result) => result);
-    if (allPassed) {
-      console.log("All test cases passed!");
-      setScore((prevScore) => Math.min(prevScore + 1, 10));
+      const testCaseResults = currentQuestion.test_cases.map((testCase) => {
+        const result = regex.test(testCase);
+        console.log(`Test case: "${testCase}" - Result: ${result}`);
+        return result;
+      });
+
+      const failCaseResults = currentQuestion.fail_cases.map((failCase) => {
+        const result = regex.test(failCase);
+        console.log(`Fail case: "${failCase}" - Result: ${result}`);
+        return result;
+      });
+
+      const allTestCasesPassed = testCaseResults.every((result) => result);
+      const allFailCasesFailed = failCaseResults.every((result) => !result);
+
+      if (allTestCasesPassed && allFailCasesFailed) {
+        console.log("All test cases passed and all fail cases failed!");
+        setScore((prevScore) => Math.min(prevScore + 1, 10));
+      } else {
+        console.log("Some test cases failed or some fail cases passed.");
+      }
+
+      const newAnswered = [...answered];
+      newAnswered[currentIndex] = true;
+      setAnswered(newAnswered);
+
+      if (newAnswered.every((answer) => answer)) {
+        setShowScore(true);
+      }
     } else {
-      console.log("Some test cases failed.");
+      alert("Regex is empty");
     }
-
-    const newAnswered = [...answered];
-    newAnswered[currentIndex] = true;
-    setAnswered(newAnswered);
-
-    if (newAnswered.every((answer) => answer)) {
-      setShowScore(true);
-    }
-    }
-    else{
-      alert('Regex is empty')
-    }
-
   };
+
 
   const handleHint = () => {
     setShowHint((prevShowHint) => !prevShowHint);
