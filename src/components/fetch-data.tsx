@@ -7,7 +7,8 @@ interface Question {
   question: string;
   solutions: string[];
   hint: string;
-  test_cases: string[]; // Ensure this matches the structure of your data
+  test_cases: string[];
+  fail_cases:string[]; // Ensure this matches the structure of your data
 }
 
 interface MyData {
