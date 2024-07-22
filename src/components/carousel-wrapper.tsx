@@ -49,7 +49,10 @@ const CarouselWrapper: React.FC<CarouselWrapperProps> = ({ data }) => {
     console.log("Submit button clicked with regex:", regexInput);
 
     const currentQuestion = data[currentIndex];
-    if (regexInput != "") {
+    if(regexInput == '*'){
+      alert('No Shortcuts')
+    }
+    if (regexInput !== "" && regexInput !== "()*") {
       const regex = new RegExp(regexInput);
 
       const testCaseResults = currentQuestion.test_cases.map((testCase) => {
